@@ -19,7 +19,7 @@ app.set("trust proxy", 1);
 
 // ✅ CORS setup - allow frontend to connect
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "https://it-marketing-frontend.onrender.com",
   credentials: true,
 }));
 
