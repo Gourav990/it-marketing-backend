@@ -19,7 +19,7 @@ app.set("trust proxy", 1);
 
 // ✅ CORS setup - allow frontend to connect
 app.use(cors({
-  origin: "https://it-marketing-frontend.onrender.com",
+  origin: process.env.FRONTEND_URL,
   credentials: true,
 }));
 
@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
 });
 
 // ✅ Start server
-const PORT = process.env.PORT || 5000;
+const PORT =process.env.PORT  || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
