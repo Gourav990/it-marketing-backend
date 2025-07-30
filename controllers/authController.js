@@ -78,7 +78,7 @@ const loginUser = async (req, res) => {
        sameSite: "None", // Must be "None" for cross-origin cookies
        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
-    res.status(200).json({ message: "Logged out successfully" });
+    
     console.log("logged in",user);
     res.status(200).json({
       message: "Login successful",
