@@ -34,22 +34,37 @@ const registerUser = async (req, res) => {
     console.log("register method called");
     const { name, company, email, password } = req.body;
 
+    // ✅ Validate only required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Name, email, and password are required" });
+    }
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "User already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, company, email, password: hashedPassword });
-    console.log("user data",newUser);
+    
+    // ✅ Save only defined fields (company is optional)
+    const newUser = new User({
+      name,
+      email,
+      password: hashedPassword,
+      ...(company && { company }) // only add company if it exists
+    });
 
+    console.log("user data", newUser);
     await newUser.save();
+
     res.status(201).json({ message: "User registered successfully" });
+
   } catch (error) {
     console.error("Error in registerUser:", error.message);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 const loginUser = async (req, res) => {
   try {
